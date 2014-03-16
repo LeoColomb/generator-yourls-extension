@@ -1,0 +1,9 @@
+[submodule "app/templates/plugin"]
+	path = app/templates/plugin
+	url = git@github.com:YOURLS/plugin-sample.git
+[submodule "app/templates/theme"]
+	path = app/templates/theme
+	url = git@github.com:YOURLS/theme-sample.git
+[submodule "app/templates/translation"]
+	path = app/templates/translation
+	url = git@github.com:YOURLS/YOURLS.pot.git
