@@ -1,7 +1,0 @@
-language: node_js
-node_js:
-  - '0.10'
-before_install:
-  - currentfolder=${PWD##*/}
-  - if [ "$currentfolder" != 'generator-yourls-extension' ]; then cd .. && eval "mv $currentfolder generator-yourls-extension" && cd generator-yourls-extension; fi
-
