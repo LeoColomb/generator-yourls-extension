@@ -3,7 +3,18 @@ var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
-var ext_types = ['plugin', 'theme', 'translation'];
+var ext_types = ['Plugin', 'Theme', 'Translation'];
+
+var extractGeneratorName = function (_, appname) {
+    var slugged = _.slugify(appname);
+    var match = slugged.match(/^yourls-(.+)/);
+
+    if (match && match.length === 2) {
+        return match[1].toLowerCase();
+    }
+
+    return slugged;
+};
 
 var YourlsExtensionGenerator = yeoman.generators.Base.extend({
     init: function () {
@@ -11,60 +22,59 @@ var YourlsExtensionGenerator = yeoman.generators.Base.extend({
 
         this.on('end', function () {
             var fs = require('fs');
-            fs.unlinkSync('.git');
+            if (fs.lstatSync('.git').isFile()) {
+                fs.unlinkSync('.git');
+            }
         });
     },
 
     askFor: function () {
         var done = this.async();
+        var extensionName = extractGeneratorName(this._, this.appname);
 
         // have Yeoman greet the user
         this.log(this.yeoman);
 
         // replace it with a short and sweet description of your generator
-        this.log(chalk.magenta('Create a YOURLS extension: plugin, theme or translation.'));
+        this.log(chalk.cyan('Create YOURLS extensions: plugin, theme and translation.'));
+        this.log('For more information about YOURLS extensions best practices,' +
+            '\nplease see the docs at http://yourls.org/extensions.\n');
 
         var prompts = [{
             type: 'list',
             name: 'type',
-            message: 'Extension type',
+            message: 'Extension category',
             default: 'plugin',
             choices: ext_types
         },
         {
-            name: 'extName',
-            message: 'Extension name',
+            name: 'name',
+            message: 'Extension Name',
+            default: extensionName,
             filter: function (input) {
-                var contribRe = /^yourls(-)?|(-)?yourls$/;
-                if (contribRe.test(input)) {
-                    input = input.replace(contribRe, '');
-                }
-                return input;
+                return input.replace(/^yourls[\-_]?/, '').replace(/[\-_]?yourls$/, '');
             }
         },
         {
-            name: 'extDesc',
-            message: 'Extension Description'
+            name: 'description',
+            message: 'Extension Description',
+            default: 'The best YOURLS plugin ever.'
         },
         {
-            name: 'extUrl',
-            message: 'Extension URL'
-        },
-        {
-            name: 'extVersion',
+            name: 'version',
             message: 'Extension version',
-            default: '0.1.0',
+            default: '0.0.1',
             validate: function (input) {
                 return /^[0-9]\.[0-9](\.[0-9])?$/.test(input);
             }
         },
         {
-            name: 'yourlsMinVersion',
-            message: 'Minimum YOURLS version',
-            default: '2.0.0',
-            validate: function (input) {
-                return /^[0-9]\.[0-9](\.[0-9])?$/.test(input);
-            }
+            name: 'homepage',
+            message: 'Project homepage'
+        },
+        {
+            name: 'repository',
+            message: 'Project git repository'
         },
         {
             name: 'license',
@@ -77,29 +87,51 @@ var YourlsExtensionGenerator = yeoman.generators.Base.extend({
             default: this.user.username
         },
         {
+            name: 'authorEmail',
+            message: 'Author email'
+        },
+        {
             name: 'authorUrl',
             message: 'Author URL'
         },
         {
+            name: 'yourlsVersion',
+            message: 'What version of YOURLS does it need?',
+            default: '2.0.0',
+            validate: function (input) {
+                return /^[0-9]\.[0-9](\.[0-9])?$/.test(input);
+            }
+        },
+        {
             name: 'language',
-            message: 'Language',
+            message: 'Language (eg: en_US)',
+            validate: function (input) {
+                return /^[a-z][a-z]_[A-Z][A-Z]$/.test(input);
+            },
             when: function (props) {
                 return props.type == ext_types[2];
             }
         }];
 
         this.prompt(prompts, function (props) {
-            this.type = props.type;
-            this.extName = props.extName;
-            this.extSlugName = this._.slugify(props.extName);
+            this.type = this._.slugify(props.type);
+            this.extName = props.name;
+            this.extSlugName = this._.slugify(props.name);
             this.extFullName = 'yourls-' + this.extSlugName;
-            this.extDesc = props.extDesc;
-            this.extUrl = props.extUrl;
-            this.extVersion = props.extVersion;
-            this.yourlsMinVersion = props.yourlsMinVersion;
+            this.extDesc = props.description;
+            this.extVersion = props.version;
+            if (props.homepage) {
+                this.extUrl = props.homepage;
+            }
+            else {
+                this.extUrl = props.repository;
+            }
+            this.extRepo = props.repository;
             this.license = props.license;
             this.authorName = props.authorName;
+            this.authorEmail = props.authorEmail;
             this.authorUrl = props.authorUrl;
+            this.yourlsMinVersion = props.yourlsVersion;
             this.language = props.language;
 
             done();
