@@ -1,14 +1,25 @@
 {
   "name": "generator-yourls-extension",
   "version": "0.0.1",
-  "description": "Yeoman generator",
+  "description": "YOURLS Extension Generator by Yeoman",
+  "keywords": [
+    "yeoman-generator",
+    "generator",
+    "extensions",
+    "yourls",
+    "plugin",
+    "theme"
+  ],
+  "homepage": "http://yourls.org",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "LeoColomb/generator-yourls-extension",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeoColomb/generator-yourls-extension"
+  },
   "author": {
-    "name": "Léo Colombaro",
-    "email": "",
-    "url": "https://github.com/LeoColomb"
+    "name": "Leo Colombaro",
+    "url": "http://colombaro.fr"
   },
   "engines": {
     "node": ">=0.10.0"
