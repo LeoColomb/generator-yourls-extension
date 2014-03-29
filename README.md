@@ -1,7 +1,7 @@
-YOURLS Extension Generator [![Build Status](https://secure.travis-ci.org/LeoColomb/generator-yourls-extension.png?branch=master)](https://travis-ci.org/LeoColomb/generator-yourls-extension)
+YOURLS Extension Generator
 ==========================
 
-> [Yeoman](http://yeoman.io) generator
+> [Yeoman](http://yeoman.io) generator for creating YOURLS extensions
 
 
 ## Getting Started
