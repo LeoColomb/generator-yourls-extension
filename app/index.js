@@ -84,7 +84,10 @@ var YourlsExtensionGenerator = yeoman.generators.Base.extend({
         {
             name: 'authorName',
             message: 'Author name',
-            default: this.user.username
+            default: this.user.git.username,
+            validate: function (input) {
+                return input ? true : false;
+            }
         },
         {
             name: 'authorEmail',
@@ -141,6 +144,36 @@ var YourlsExtensionGenerator = yeoman.generators.Base.extend({
     app: function () {
         this.directory(this.type, '.');
     },
+
+    packageFile: function () {
+        var pkgFile = {
+            name: this._.slugify(this.authorName) + '/' + this.extFullName,
+            description: this.extDesc,
+            keywords: [
+              'yourlsextension',
+              this.type
+            ],
+            license: this.license,
+            authors: [
+                {
+                    name: this.authorName
+                }
+            ]
+        };
+
+        if (this.extUrl) {
+            pkgFile.homepage = this.extUrl;
+        }
+
+        if (this.authorUrl) {
+            pkgFile.authors[0].url = this.authorUrl;
+        }
+        if (this.authorEmail) {
+            pkgFile.authors[0].email = this.authorEmail;
+        }
+
+        this.writeFileFromString(JSON.stringify(pkgFile, null, 2), 'composer.json');
+    }
 
 });
 
