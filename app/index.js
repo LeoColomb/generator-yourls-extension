@@ -1,6 +1,7 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
+var fs = require('fs');
 var extTypes = ['Plugin', 'Theme', 'Translation'];
 
 var extractGeneratorName = function (_, appname) {
@@ -19,7 +20,6 @@ var YourlsExtensionGenerator = yeoman.generators.Base.extend({
     this.pkg = require('../package.json');
 
     this.on('end', function () {
-      var fs = require('fs');
       if (fs.lstatSync('.git').isFile()) {
         fs.unlinkSync('.git');
       }
@@ -42,7 +42,7 @@ var YourlsExtensionGenerator = yeoman.generators.Base.extend({
       type: 'list',
       name: 'type',
       message: 'Extension category',
-      default: 'plugin',
+      default: extTypes[0],
       choices: extTypes
     },
     {
@@ -89,7 +89,8 @@ var YourlsExtensionGenerator = yeoman.generators.Base.extend({
     },
     {
       name: 'authorEmail',
-      message: 'Author email'
+      message: 'Author email',
+      default: this.user.git.email
     },
     {
       name: 'authorUrl',
@@ -115,7 +116,7 @@ var YourlsExtensionGenerator = yeoman.generators.Base.extend({
     }];
 
     this.prompt(prompts, function (props) {
-      this.type = this._.slugify(props.type);
+      this.type = props.type;
       this.extName = props.name;
       this.extSlugName = this._.slugify(props.name);
       this.extFullName = 'yourls-' + this.extSlugName;
@@ -139,16 +140,28 @@ var YourlsExtensionGenerator = yeoman.generators.Base.extend({
   },
 
   app: function () {
-    this.directory(this.type, '.');
+    this.directory(this.type.toLowerCase(), '.');
+  },
+
+  licenseFile: function () {
+    if (fs.existsSync(__dirname + '/templates/licenses/LICENSE-' + this.license.toUpperCase())) {
+      var today = new Date();
+      this.currentYear = today.getFullYear();
+      this.template('licenses/LICENSE-' + this.license.toUpperCase(), 'LICENSE');
+    }
   },
 
   packageFile: function () {
+    if (this.type === extTypes[2]) {
+      return;
+    }
+
     var pkgFile = {
       name: this._.slugify(this.authorName) + '/' + this.extFullName,
       description: this.extDesc,
       keywords: [
         'yourlsextension',
-        this.type
+        this.type.toLowerCase()
       ],
       license: this.license,
       authors: [
