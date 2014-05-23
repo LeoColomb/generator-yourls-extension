@@ -1,6 +1,6 @@
 YOURLS Extension Generator
 ==========================
-[![Latest Release](http://img.shields.io/github/release/LeoColomb/generator-latex.svg)](https://github.com/LeoColomb/Arduino-SRF/releases)
+[![Latest Release](http://img.shields.io/npm/v/generator-yourls-extension.svg)](https://github.com/LeoColomb/Arduino-SRF/releases)
 [![Build Status](https://travis-ci.org/LeoColomb/generator-yourls-extension.svg)](https://travis-ci.org/LeoColomb/generator-yourls-extension)
 [![Build for YOURLS](http://img.shields.io/badge/build%20for-YOURLS-1f669c.svg)](http://yourls.org)
 
