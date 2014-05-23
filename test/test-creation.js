@@ -26,6 +26,7 @@ describe('yourls-extension generator', function () {
 
     helpers.mockPrompt(this.app, {
       'name': 'Test Plugin',
+      'type': 'Plugin'
     });
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {
