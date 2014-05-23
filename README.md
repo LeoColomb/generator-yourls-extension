@@ -9,7 +9,8 @@ YOURLS Extension Generator
 This script help to create YOURLS v2.0+ extensions in a second.
 
 
-## Getting Started
+Getting Started
+---------------
 
 ### What is Yeoman?
 
@@ -37,5 +38,6 @@ Finally, initiate the generator and follow instructions:
 $ yo yourls-extension
 ```
 
-## License
+License
+---------------
 Licensed under MIT
