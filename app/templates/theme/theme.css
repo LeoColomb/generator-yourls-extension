@@ -1,0 +1,15 @@
+/*  
+Theme Name: <%= extName %>
+Theme URI: <%= extUrl %>
+Description: <%= extDesc %>
+Version: <%= extVersion %>
+Author: <%= authorName %>
+Author URI: <%= authorUrl %>
+*/
+
+/* Declare your theme CSS below, for instance: */
+
+body {
+	/* ... */
+}
+
