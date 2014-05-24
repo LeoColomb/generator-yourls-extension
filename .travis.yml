@@ -1,7 +1,15 @@
 language: node_js
+
 node_js:
   - '0.10'
+
 before_install:
   - currentfolder=${PWD##*/}
   - if [ "$currentfolder" != 'generator-yourls-extension' ]; then cd .. && eval "mv $currentfolder generator-yourls-extension" && cd generator-yourls-extension; fi
 
+deploy:
+  provider: npm
+  email: "git@colombaro.fr"
+  api_key: "XSVfitzLtBFuTKvPlOSfhIOntqOwNTSAGEu0iYPE4lp0zvex3Ciq/2Sh90hqymYpYUjfI570N9iedv3h+SblD4aZ5dDiSl/l8j4CMIQqbva3T9Fpt0Z1twP5Oqr17WkA7l2FCCYzAO+FfbnIgTQnWcSFpAboxkE5Ob20vkjRw2U="
+  on:
+    tags: true
