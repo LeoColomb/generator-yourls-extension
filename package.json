@@ -1,6 +1,6 @@
 {
   "name": "generator-yourls-extension",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "YOURLS Extension Generator by Yeoman",
   "keywords": [
     "yeoman-generator",
@@ -18,7 +18,7 @@
     "url": "https://github.com/LeoColomb/generator-yourls-extension"
   },
   "author": {
-    "name": "Léo Colombaro",
+    "name": "Lï¿½o Colombaro",
     "url": "http://colombaro.fr"
   },
   "engines": {
