@@ -181,6 +181,9 @@ var YourlsExtensionGenerator = yeoman.generators.Base.extend({
   app: function () {
     this.directory(this.type.toLowerCase(), '.');
     this.template('_README.md', 'README.md');
+    this.copy('editorconfig', '.editorconfig');
+    this.copy('gitattributes', '.gitattributes');
+    this.copy('gitignore', '.gitignore');
   },
 
   licenseFile: function () {
@@ -224,7 +227,6 @@ var YourlsExtensionGenerator = yeoman.generators.Base.extend({
 
     this.writeFileFromString(JSON.stringify(pkgFile, null, 2), 'composer.json');
   }
-
 });
 
 module.exports = YourlsExtensionGenerator;
