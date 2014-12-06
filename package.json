@@ -10,7 +10,7 @@
     "plugin",
     "theme"
   ],
-  "homepage": "http://yourls.org",
+  "homepage": "https://yourls.org/",
   "license": "MIT",
   "main": "app/index.js",
   "repository": {
@@ -18,7 +18,7 @@
     "url": "https://github.com/LeoColomb/generator-yourls-extension"
   },
   "author": {
-    "name": "Leo Colombaro",
+    "name": "Léo Colombaro",
     "url": "http://colombaro.fr"
   },
   "engines": {

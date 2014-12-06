@@ -155,7 +155,7 @@ var YourlsExtensionGenerator = yeoman.generators.Base.extend({
 
     this.prompt(prompts, function (props) {
       this.type = props.type;
-      this.extName = props.name;
+      this.extName = this._.humanize(props.name);
       this.extSlugName = this._.slugify(props.name);
       this.extFullName = 'yourls-' + this.extSlugName;
       this.extDesc = props.description;
